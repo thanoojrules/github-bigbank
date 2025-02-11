@@ -32,5 +32,5 @@ pool.connect()
     .then(() => console.log("✅ Connected to PostgreSQL database"))
     .catch(err => console.error("❌ Database connection error:", err));
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`🚀 Server running on http://localhost:${PORT}`));
+const PORT = process.env.PORT || 80;
+app.listen(PORT, () => console.log(`🚀 Server running on http://0.0.0.0:${PORT}`));
