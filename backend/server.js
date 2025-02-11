@@ -14,7 +14,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-const frontendPath = path.join(__dirname, "../frontend/public");
+const frontendPath = path.join(__dirname, "frontend/public");
 app.use(express.static(frontendPath));
 
 app.get("/", (req, res) => {
