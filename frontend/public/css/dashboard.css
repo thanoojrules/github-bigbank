@@ -1,34 +1,128 @@
-/* ✅ Default Light Theme */
+/* ✅ Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background: url('../images/background.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #333;
     text-align: center;
 }
 
 /* ✅ Dark Mode */
 .dark-mode {
-    background-color: #121212;
+    background: #121212;
     color: white;
 }
 
 .dark-mode .navbar {
-    background-color: #333;
+    background-color: #222;
 }
 
 .dark-mode .container {
+    background: #181818;
+}
+
+.dark-mode .card {
     background: #222;
+    color: white;
+}
+
+.dark-mode button {
+    background: #444;
+}
+
+/* ✅ Navigation Bar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0, 123, 255, 0.8);
+    padding: 15px 20px;
+    color: white;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.navbar .logo {
+    display: flex;
+    align-items: center;
+}
+
+.navbar .logo img {
+    height: 40px;
+    margin-right: 10px;
+}
+
+.navbar .nav-buttons button {
+    background: white;
+    color: #007bff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.navbar .nav-buttons button:hover {
+    background: #0056b3;
+    color: white;
+}
+
+/* ✅ Main Content */
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+/* ✅ Welcome Box */
+.welcome-box {
+    background: #007bff;
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+/* ✅ Card Styling */
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+/* ✅ Account Balance */
+.money {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #28a745;
+}
+
+/* ✅ Inputs */
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
 }
 
 /* ✅ Buttons */
 button {
     background: #007bff;
     color: white;
+    padding: 10px 15px;
     border: none;
-    padding: 10px;
-    margin: 5px;
     cursor: pointer;
+    font-weight: bold;
     border-radius: 5px;
 }
 
@@ -36,36 +130,20 @@ button:hover {
     background: #0056b3;
 }
 
-.reminders {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
+/* ✅ Transactions */
+.transactions ul, .notifications ul {
+    list-style: none;
+    padding: 0;
 }
 
-.reminders table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-}
-
-.reminders th, .reminders td {
+.transactions li, .notifications li {
+    background: #f4f4f4;
     padding: 10px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-}
-
-.reminders th {
-    background: #1a73e8;
-    color: white;
-}
-
-.pay-btn {
-    background: #28a745;
-    color: white;
-    padding: 5px 10px;
-    border: none;
-    cursor: pointer;
     border-radius: 5px;
+    margin: 5px 0;
+}
+
+/* ✅ Dark Mode Switch */
+.dark-mode button {
+    background: #555;
 }

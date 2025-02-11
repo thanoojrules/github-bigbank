@@ -6,58 +6,66 @@
     <title>BigBank Dashboard</title>
     <link rel="stylesheet" href="css/dashboard.css">
     <script defer src="js/dashboard.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <!-- ✅ Navigation Bar -->
     <nav class="navbar">
-        <h1>BigBank Dashboard</h1>
-        <button id="toggleTheme">Dark Mode</button>
-        <button id="logoutBtn">Logout</button>
+        <div class="logo">
+            <img src="images/logo.png" alt="BigBank Logo">
+            <h1>BigBank</h1>
+        </div>
+        <div class="nav-buttons">
+            <button id="toggleTheme">🌙 Dark Mode</button>
+            <button id="logoutBtn">🚪 Logout</button>
+        </div>
     </nav>
 
     <!-- ✅ Main Dashboard Content -->
     <div class="container">
-        <h2>Welcome, <span id="userEmail"></span>!</h2>
+        <div class="welcome-box">
+            <h2>Welcome, <span id="userEmail"></span>!</h2>
+        </div>
 
         <!-- ✅ Account Overview -->
-        <div class="account-summary">
-            <h3>Account Overview</h3>
+        <div class="account-summary card">
+            <h3>💰 Account Overview</h3>
             <p><strong>Email:</strong> <span id="email"></span></p>
-            <p><strong>Account Balance:</strong> $<span id="balance">0.00</span></p>
-            <p><strong>Savings:</strong> $<span id="savings">0.00</span></p>
+            <p><strong>Account Balance:</strong> <span id="balance" class="money">$0.00</span></p>
+            <p><strong>Savings:</strong> <span id="savings" class="money">$0.00</span></p>
         </div>
 
         <!-- ✅ Profile Update Section -->
-<div class="profile-update">
-    <h3>Update Profile</h3>
-    <input type="email" id="newEmail" placeholder="New Email">
-    <input type="password" id="newPassword" placeholder="New Password">
-    <button id="updateProfileBtn">Update Profile</button>
-</div>
+        <div class="profile-update card">
+            <h3>📝 Update Profile</h3>
+            <input type="email" id="newEmail" placeholder="New Email">
+            <input type="password" id="newPassword" placeholder="New Password">
+            <button id="updateProfileBtn">Update Profile</button>
+        </div>
 
         <!-- ✅ Transfer Money -->
-        <div class="transfer-actions">
-            <h3>Transfer Money</h3>
+        <div class="transfer-actions card">
+            <h3>💸 Transfer Money</h3>
             <input type="email" id="recipientEmail" placeholder="Recipient Email" required>
             <input type="number" id="transferAmount" placeholder="Enter Amount" required step="0.01">
             <button id="transferBtn">Send Money</button>
             <p id="transferStatus"></p>
         </div>
 
-       <!-- ✅ Transaction History -->
-<div class="transactions">
-    <h3>Transaction History</h3>
-    <ul id="transactionList"></ul>
-</div>
-
-        <!-- ✅ Notifications -->
-        <div class="notifications">
-            <h3>Notifications</h3>
-            <button id="fetchNotifications">🔔 View Notifications</button>
-            <ul id="notificationList"></ul>
+        <!-- ✅ Transaction History -->
+        <div class="transactions card">
+            <h3>📜 Transaction History</h3>
+            <ul id="transactionList"></ul>
         </div>
 
+        <!-- ✅ Notifications -->
+        <div class="notifications card">
+            <h3>🔔 Notifications</h3>
+            <button id="fetchNotifications">View Notifications</button>
+            <ul id="notificationList"></ul>
+        </div>
     </div>
 
 </body>
