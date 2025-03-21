@@ -27,8 +27,12 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         try {
-            const API_BASE_URL = "http://20.151.166.147:3000/api"; // ✅ Updated to VM IP
+            // Use dynamic API URL depending on the environment (HTTPS)
+            const API_BASE_URL = window.location.origin.includes("localhost") 
+                ? "http://localhost:3000/api"  // Local Development (non-HTTPS for testing)
+                : "https://bigbank-backend.azurewebsites.net/api"; // Production (HTTPS)
 
+            // Make the API request
             const response = await fetch(`${API_BASE_URL}/auth/login`, { 
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -42,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 alert("✅ Login successful!");
                 window.location.href = "dashboard.html"; // Redirect to dashboard
             } else {
-                alert(`🚨 Login failed: ${data.error}`);
+                alert(`🚨 Login failed: ${data.error || "Invalid credentials"}`);
             }
         } catch (error) {
             console.error("❌ Login request failed:", error);
