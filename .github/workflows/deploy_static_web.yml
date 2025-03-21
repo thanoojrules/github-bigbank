@@ -59,7 +59,7 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
           app_location: "frontend/public" # Ensure correct path
-          output_location: "" # No extra build step needed
+          output_location: "" # No ..extra build step needed
 
       - name: Output Live Website URL
         run: echo "🎉 Deployment successful! Visit your site at: https://${{ steps.deploy-to-webapp.outputs.defaultHostname }}"
