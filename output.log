@@ -1,0 +1,5 @@
+nohup: ignoring input
+🚀 Server running on http://0.0.0.0:3000
+✅ Connected to PostgreSQL database
+✅ Connected to Azure PostgreSQL
+Error: ENOENT: no such file or directory, stat '/var/www/html/backend/frontend/public/index.html'

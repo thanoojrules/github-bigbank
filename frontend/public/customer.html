@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Profile - BigBank</title>
+    <link rel="stylesheet" href="css/customer.css">
+    <script defer src="js/customer.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+</head>
+<body>
+
+    <!-- ✅ Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">
+            <img src="images/logo.png" alt="BigBank Logo">
+            <h1>BigBank</h1>
+        </div>
+        <div class="nav-buttons">
+            <button id="dashboardBtn">🏠 Dashboard</button>
+            <button id="logoutBtn">🚪 Logout</button>
+            <button id="downloadStatementBtn">📄 Download Credit Statement</button>
+        </div>
+    </nav>
+
+    <!-- ✅ Customer Profile Section -->
+    <div class="container">
+        <h2>👤 Customer Profile</h2>
+
+        <div class="cards-container">
+            <!-- ✅ Credit Card -->
+            <div class="card credit-card">
+                <h3>💳 Credit Card</h3>
+                <p><strong>Credit Limit:</strong> $2000</p>
+                <p><strong>Used Credit:</strong> <span id="usedCredit">$500</span></p>
+                <p><strong>Available Credit:</strong> <span id="availableCredit">$1500</span></p>
+            </div>
+
+            <!-- ✅ Debit Card -->
+            <div class="card debit-card">
+                <h3>💰 Debit Card</h3>
+                <p><strong>Balance:</strong> <span id="debitBalance">$0.00</span></p>
+            </div>
+
+            <!-- ✅ Scene Points -->
+            <div class="card scene-points">
+                <h3>🎟 Scene Points</h3>
+                <p><strong>Total Points:</strong> <span id="scenePoints">1200</span></p>
+            </div>
+        </div>
+
+        <!-- ✅ Loan Subscription Section -->
+        <div class="loan-subscription card">
+            <h3>🏦 Loan Subscription</h3>
+            <label for="loanType">Select Loan Type:</label>
+            <select id="loanType">
+                <option value="car">🚗 Car Loan (3% Interest, Max 3 Years)</option>
+                <option value="education">🎓 Educational Loan (2.3% Interest, Max 5 Years)</option>
+                <option value="housing">🏡 Housing Loan (1.8% Interest, Max 10 Years)</option>
+            </select>
+
+            <label for="paymentMethod">Choose Payment Method:</label>
+            <select id="paymentMethod">
+                <option value="debit">💳 Debit Card (Auto Monthly EMI)</option>
+                <option value="credit">💰 Credit Card (No Monthly EMI)</option>
+            </select>
+
+            <button id="subscribeLoanBtn">📩 Subscribe to Loan</button>
+            <div id="loanStatus"></div>
+        </div>
+
+        <!-- ✅ Display Subscribed Loan Details -->
+        <div class="card loan-details" style="display:none;">
+            <h3>📜 My Loan Details</h3>
+            <p><strong>Loan Type:</strong> <span id="loanTypeDisplay"></span></p>
+            <p><strong>Monthly EMI:</strong> <span id="monthlyEmiDisplay"></span></p>
+            <p><strong>Loan Balance:</strong> <span id="loanBalanceDisplay"></span></p>
+            <p><strong>Interest Rate:</strong> <span id="interestRateDisplay"></span></p>
+            <p><strong>Loan Term:</strong> <span id="loanTermDisplay"></span> years</p>
+        </div>
+
+        <!-- ✅ Transaction Calendar -->
+        <div class="calendar-container">
+            <h3>📅 Transaction History</h3>
+            <div id="calendar"></div>
+        </div>
+    </div>
+
+</body>
+</html>
+

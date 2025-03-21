@@ -1,0 +1,52 @@
+<!-- 📄 adminLogin.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - BigBank</title>
+    <link rel="stylesheet" href="css/admin.css"> <!-- ✅ Link to admin.css -->
+</head>
+<body>
+    <div class="admin-login-container">
+        <h1>🔐 Admin Login</h1>
+        <form id="adminLoginForm">
+            <label for="adminEmail">Email:</label>
+            <input type="email" id="adminEmail" placeholder="Enter admin email" required>
+
+            <label for="adminPassword">Password:</label>
+            <input type="password" id="adminPassword" placeholder="Enter password" required>
+
+            <button type="submit">Login</button>
+        </form>
+
+        <p id="loginError" style="color: red; display: none;">❌ Invalid credentials. Please try again.</p>
+
+        <button onclick="goBack()" class="back-btn">⬅️ Back to Dashboard</button>
+    </div>
+
+    <script>
+        document.getElementById("adminLoginForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const email = document.getElementById("adminEmail").value;
+            const password = document.getElementById("adminPassword").value;
+
+            const response = await fetch("/api/admin/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email, password }),
+            });
+
+            if (response.ok) {
+                window.location.href = "/adminDashboard.html";  // ✅ Redirect after successful login
+            } else {
+                document.getElementById("loginError").style.display = "block";
+            }
+        });
+
+        function goBack() {
+            window.location.href = "/dashboard.html";
+        }
+    </script>
+</body>
+</html>

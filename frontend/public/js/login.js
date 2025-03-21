@@ -27,7 +27,9 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         try {
-            const response = await fetch("http://localhost:3000/api/auth/login", {
+            const API_BASE_URL = "http://20.151.166.147:3000/api"; // ✅ Updated to VM IP
+
+            const response = await fetch(`${API_BASE_URL}/auth/login`, { 
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, password }),
@@ -37,7 +39,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
             if (response.ok) {
                 localStorage.setItem("token", data.token);
-                window.location.href = "dashboard.html";
+                alert("✅ Login successful!");
+                window.location.href = "dashboard.html"; // Redirect to dashboard
             } else {
                 alert(`🚨 Login failed: ${data.error}`);
             }

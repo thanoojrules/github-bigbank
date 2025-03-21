@@ -2,38 +2,68 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - BigBank</title>
-    <link rel="stylesheet" href="css/dashboard.css">
-    <script defer src="js/adminDashboard.js"></script>
+    <link rel="stylesheet" href="css/adminDashboard.css">
 </head>
 <body>
+    <h1>🚀 Admin Dashboard</h1>
 
-    <nav class="navbar">
-        <h1>Admin Dashboard</h1>
-        <button id="logoutBtn">Logout</button>
-    </nav>
+    <!-- ✅ Users Section -->
+    <h2>👥 All Users</h2>
+    <table id="usersTable">
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>Balance</th>
+                <th>Restricted</th>
+                <th>Transfer Limit</th>
+                <th>Daily Limit</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
 
-    <div class="container">
-        <h2>All Users</h2>
-        <table id="usersTable">
-            <thead>
-                <tr>
-                    <th>Email</th>
-                    <th>Role</th>
-                    <th>Balance</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
+    <!-- ✅ Loan Requests Section -->
+    <h2>💰 Loan Requests</h2>
+    <table id="loanRequestsTable">
+        <thead>
+            <tr>
+                <th>User Email</th>
+                <th>Loan Type</th>
+                <th>Payment Method</th>
+                <th>Requested Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
 
-        <h2>All Transactions</h2>
+    <!-- ✅ Loan Approval Modal -->
+    <div id="loanApprovalModal" style="display: none;">
+        <h2>📝 Approve Loan</h2>
+        <form id="loanApprovalForm">
+            <input type="hidden" id="loanUserEmail">
+            <label>Loan Amount:</label>
+            <input type="number" id="loanAmount" required><br>
+            <label>Interest Rate (%):</label>
+            <input type="number" id="loanInterest" required><br>
+            <label>Loan Term (Months):</label>
+            <input type="number" id="loanTerm" required><br>
+            <button type="submit">✅ Approve Loan</button>
+            <button type="button" onclick="closeLoanModal()">❌ Cancel</button>
+        </form>
+    </div>
+
+    <!-- ✅ User Transactions Modal -->
+    <div id="userTransactionsModal" style="display: none;">
+        <h2>📜 User Transactions</h2>
+        <button onclick="closeModal()">❌ Close</button>
         <table id="transactionsTable">
             <thead>
                 <tr>
-                    <th>User</th>
-                    <th>Type</th>
+                    <th>Sender</th>
+                    <th>Recipient</th>
                     <th>Amount</th>
                     <th>Date</th>
                 </tr>
@@ -42,5 +72,217 @@
         </table>
     </div>
 
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        fetchAdminData();
+        fetchLoanRequests();
+    });
+
+    // ✅ Fetch All Users
+    async function fetchAdminData() {
+        try {
+            const usersResponse = await fetch("/api/admin/users");
+            const users = await usersResponse.json();
+            const usersTable = document.querySelector("#usersTable tbody");
+            usersTable.innerHTML = "";
+
+            users.forEach(user => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td><a href="#" onclick="viewUserTransactions('${user.email}')">${user.email}</a></td>
+                    <td>$${user.balance}</td>
+                    <td>${user.restricted ? 'Yes' : 'No'}</td>
+                    <td>${user.transfer_limit ? `$${user.transfer_limit}` : 'No Limit'}</td>
+                    <td>${user.daily_transaction_limit ? user.daily_transaction_limit : 'No Limit'}</td>
+                    <td>
+                        <button onclick="setTransferLimit('${user.email}')">💲 Set Limit</button>
+                        <button onclick="setDailyLimit('${user.email}')">📅 Set Daily Limit</button>
+                        <button onclick="toggleRestriction('${user.email}', ${user.restricted})">
+                            ${user.restricted ? '🚫 Unrestrict' : '✅ Restrict'}
+                        </button>
+                    </td>
+                `;
+                usersTable.appendChild(row);
+            });
+        } catch (error) {
+            console.error("❌ Error fetching users:", error);
+            alert("❌ Failed to fetch users.");
+        }
+    }
+
+    // ✅ Fetch Loan Requests
+    async function fetchLoanRequests() {
+        try {
+            const response = await fetch("/api/loans/admin/loan-subscriptions", {
+                method: "GET",
+                headers: { "Authorization": `Bearer ${localStorage.getItem('token')}` }
+            });
+
+            const loans = await response.json();
+            const loanTable = document.querySelector('#loanRequestsTable tbody');
+            loanTable.innerHTML = '';
+
+            loans.forEach(loan => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${loan.user_email}</td>
+                    <td>${loan.loan_type}</td>
+                    <td>${loan.payment_method}</td>
+                    <td>${new Date(loan.created_at).toLocaleString()}</td>
+                    <td>
+                        <button onclick="openLoanModal('${loan.user_email}')">✅ Approve</button>
+                        <button onclick="rejectLoan('${loan.user_email}')">❌ Reject</button>
+                    </td>
+                `;
+                loanTable.appendChild(row);
+            });
+        } catch (error) {
+            console.error("❌ Error fetching loan requests:", error);
+            alert("Failed to fetch loan requests.");
+        }
+    }
+
+    // ✅ Open Loan Modal
+    function openLoanModal(userEmail) {
+        document.getElementById("loanUserEmail").value = userEmail;
+        document.getElementById("loanApprovalModal").style.display = "block";
+    }
+
+    // ✅ Close Loan Modal
+    function closeLoanModal() {
+        document.getElementById("loanApprovalModal").style.display = "none";
+    }
+
+    // ✅ Approve Loan
+    document.getElementById("loanApprovalForm").addEventListener("submit", async function(e) {
+        e.preventDefault();
+        const userEmail = document.getElementById("loanUserEmail").value;
+        const amount = document.getElementById("loanAmount").value;
+        const interest = document.getElementById("loanInterest").value;
+        const term = document.getElementById("loanTerm").value;
+
+        try {
+            const response = await fetch(`/api/admin/approve-loan`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ userEmail, amount, interest, term })
+            });
+
+            if (response.ok) {
+                alert("✅ Loan approved successfully!");
+                closeLoanModal();
+                fetchLoanRequests();
+            } else {
+                alert("❌ Failed to approve loan.");
+            }
+        } catch (error) {
+            console.error("❌ Loan Approval Error:", error);
+        }
+    });
+
+    // ✅ Reject Loan
+    async function rejectLoan(userEmail) {
+        if (!confirm("Are you sure you want to reject this loan?")) return;
+
+        try {
+            const response = await fetch(`/api/admin/reject-loan`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ userEmail })
+            });
+
+            if (response.ok) {
+                alert("❌ Loan rejected successfully!");
+                fetchLoanRequests();
+            } else {
+                alert("❌ Failed to reject loan.");
+            }
+        } catch (error) {
+            console.error("❌ Loan Rejection Error:", error);
+        }
+    }
+
+    // ✅ Set Transfer Limit
+    async function setTransferLimit(email) {
+        const limit = prompt(`Enter transfer limit for ${email}:`, 500);
+        if (limit && !isNaN(limit) && limit > 0) {
+            const response = await fetch(`/api/admin/users/${email}/limit`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ limit: parseInt(limit) })
+            });
+
+            if (response.ok) {
+                alert(`✅ Transfer limit set to $${limit} for ${email}`);
+                fetchAdminData();
+            } else {
+                alert("❌ Failed to set transfer limit.");
+            }
+        }
+    }
+
+    // ✅ Set Daily Limit
+    async function setDailyLimit(email) {
+        const dailyLimit = prompt(`Enter daily transaction limit for ${email}:`, 10);
+        if (dailyLimit && !isNaN(dailyLimit) && dailyLimit > 0) {
+            const response = await fetch(`/api/admin/users/${email}/daily-limit`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ dailyLimit: parseInt(dailyLimit) })
+            });
+
+            if (response.ok) {
+                alert(`✅ Daily transaction limit set to ${dailyLimit} for ${email}`);
+                fetchAdminData();
+            } else {
+                alert("❌ Failed to set daily limit.");
+            }
+        }
+    }
+
+    // ✅ Toggle User Restriction
+    async function toggleRestriction(email, restricted) {
+        const action = restricted ? "unrestrict" : "restrict";
+        const response = await fetch(`/api/admin/users/${email}/${action}`, { method: "POST" });
+
+        if (response.ok) {
+            alert(`✅ User ${email} ${restricted ? 'unrestricted' : 'restricted'}`);
+            fetchAdminData();
+        } else {
+            alert("❌ Failed to update restriction.");
+        }
+    }
+
+    // ✅ View User Transactions
+    async function viewUserTransactions(email) {
+        try {
+            const response = await fetch(`/api/admin/users/${email}/transactions`);
+            const transactions = await response.json();
+            const transactionsTable = document.querySelector("#transactionsTable tbody");
+            transactionsTable.innerHTML = "";
+
+            transactions.forEach(tx => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${tx.sender_email || 'N/A'}</td>
+                    <td>${tx.recipient_email || 'N/A'}</td>
+                    <td>$${tx.amount}</td>
+                    <td>${new Date(tx.created_at).toLocaleString()}</td>
+                `;
+                transactionsTable.appendChild(row);
+            });
+
+            document.getElementById("userTransactionsModal").style.display = "block";
+        } catch (error) {
+            console.error("❌ Error fetching transactions:", error);
+        }
+    }
+
+    // ✅ Close Modal
+    function closeModal() {
+        document.getElementById("userTransactionsModal").style.display = "none";
+    }
+</script>
 </body>
 </html>
+

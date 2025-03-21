@@ -1,149 +1,266 @@
-/* ✅ Import Google Font */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
-
+/* ✅ General Styles */
 body {
     font-family: 'Poppins', sans-serif;
+    background-color: #f4f6f9;
+    color: #212529;
     margin: 0;
     padding: 0;
-    background: url('../images/background.jpg') no-repeat center center fixed;
-    background-size: cover;
-    color: #333;
-    text-align: center;
 }
 
-/* ✅ Dark Mode */
-.dark-mode {
-    background: #121212;
-    color: white;
-}
-
-.dark-mode .navbar {
-    background-color: #222;
-}
-
-.dark-mode .container {
-    background: #181818;
-}
-
-.dark-mode .card {
-    background: #222;
-    color: white;
-}
-
-.dark-mode button {
-    background: #444;
-}
-
-/* ✅ Navigation Bar */
+/* ✅ Navbar */
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: rgba(0, 123, 255, 0.8);
-    padding: 15px 20px;
-    color: white;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(135deg, var(--bs-primary) 40%, var(--bs-blue) 100%);
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 12px;
 }
 
-.navbar .logo {
-    display: flex;
-    align-items: center;
-}
-
-.navbar .logo img {
-    height: 40px;
+.navbar-brand img {
+    border-radius: 50%;
     margin-right: 10px;
 }
 
-.navbar .nav-buttons button {
-    background: white;
-    color: #007bff;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    margin-left: 10px;
-}
-
-.navbar .nav-buttons button:hover {
-    background: #0056b3;
-    color: white;
-}
-
-/* ✅ Main Content */
+/* ✅ Dashboard Layout */
 .container {
-    max-width: 800px;
-    margin: 20px auto;
+    max-width: 95%;
     padding: 20px;
-    background: rgba(255, 255, 255, 0.9);
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
 }
 
-/* ✅ Welcome Box */
-.welcome-box {
+/* ✅ Cards */
+.card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease-in-out;
+    background: white;
+    padding: 20px;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.card-body h5 {
+    font-weight: 600;
+    color: var(--bs-primary);
+}
+
+/* ✅ Transfer Section - Styled like Account Overview */
+.transfer-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* ✅ Transfer Input Fields */
+.transfer-card input {
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    transition: border-color 0.3s ease-in-out;
+}
+
+.transfer-card input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+    outline: none;
+}
+
+/* ✅ Transfer Buttons */
+.transfer-card button {
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+/* ✅ Green Button (Transfer to Account Balance) */
+.transfer-card .btn-transfer-balance {
+    background: linear-gradient(135deg, #28a745 40%, #218838 100%);
+}
+
+.transfer-card .btn-transfer-balance:hover {
+    background: #1e7e34;
+    transform: scale(1.05);
+}
+
+/* ✅ Blue Button (Transfer to Savings) */
+.transfer-card .btn-transfer-savings {
+    background: linear-gradient(135deg, #17a2b8 40%, #138496 100%);
+}
+
+.transfer-card .btn-transfer-savings:hover {
+    background: #117a8b;
+    transform: scale(1.05);
+}
+
+/* ✅ Transaction History Section */
+.transaction-history {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-top: 20px;
+}
+
+/* ✅ Filters (All Transactions, Income, Expense) */
+.transaction-filters {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.transaction-filters button {
+    background: #f1f3f5;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: 0.3s ease-in-out;
+}
+
+.transaction-filters button.active {
     background: #007bff;
     color: white;
-    padding: 15px;
-    border-radius: 10px;
-    margin-bottom: 20px;
 }
 
-/* ✅ Card Styling */
-.card {
+.transaction-filters button:hover {
+    background: #e0e0e0;
+}
+
+/* ✅ Transaction History Section */
+.transaction-history {
     background: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
+    margin-top: 20px;
 }
 
-/* ✅ Account Balance */
-.money {
-    font-size: 1.5em;
+/* ✅ Transaction Table Styling */
+.transaction-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.transaction-table th,
+.transaction-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.transaction-table thead {
+    background: #f8f9fa;
+    font-weight: bold;
+}
+
+/* ✅ Description Column */
+.transaction-desc {
+    font-weight: 600;
+    color: #343a40;
+}
+
+/* ✅ Amount Styling */
+.amount {
     font-weight: bold;
     color: #28a745;
 }
 
-/* ✅ Inputs */
-input {
-    width: 100%;
-    padding: 10px;
-    margin: 8px 0;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+/* ✅ Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
 }
 
-/* ✅ Buttons */
-button {
+.pagination button {
+    border: none;
+    background: transparent;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.pagination button.active {
     background: #007bff;
     color: white;
-    padding: 10px 15px;
-    border: none;
-    cursor: pointer;
-    font-weight: bold;
     border-radius: 5px;
 }
 
-button:hover {
-    background: #0056b3;
+/* ✅ Graph Containers */
+canvas {
+    width: 100% !important;
+    height: 300px !important;
+    min-height: 250px;
+    border-radius: 10px;
 }
 
-/* ✅ Transactions */
-.transactions ul, .notifications ul {
-    list-style: none;
-    padding: 0;
+/* ✅ Responsive Design */
+@media (max-width: 1024px) {
+    .container {
+        padding: 15px;
+    }
+
+    .row {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .transfer-card input {
+        font-size: 14px;
+    }
+
+    .transfer-card button {
+        font-size: 14px;
+        padding: 10px;
+    }
 }
 
-.transactions li, .notifications li {
-    background: #f4f4f4;
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    .nav-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    /* Responsive Graphs */
+    canvas {
+        height: 250px !important;
+    }
+}
+
+/* ✅ Notification Dropdown */
+#notificationDropdown {
+    display: none;
+    position: absolute; /* Ensures it floats near the button */
+    top: 50px; /* Adjust the position below the notification button */
+    right: 10px; /* Aligns it towards the right */
+    width: 300px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
     padding: 10px;
-    border-radius: 5px;
-    margin: 5px 0;
+    z-index: 999; /* Ensures it appears above other content */
 }
 
-/* ✅ Dark Mode Switch */
-.dark-mode button {
-    background: #555;
+#notificationDropdown.show {
+    display: block;
 }
