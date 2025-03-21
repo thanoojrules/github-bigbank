@@ -62,4 +62,4 @@ jobs:
           output_location: "" # No extra build step needed
 
       - name: Output Live Website URL
-        run: echo "🎉 Deployment successful! Visit your site at https://bigbankapp.azurestaticapps.net"
+        run: echo "🎉 Deployment successful! Visit your site at https://agreeable-stone-07b7afc0f.6.azurestaticapps.net"
