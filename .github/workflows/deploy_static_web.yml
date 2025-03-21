@@ -62,4 +62,4 @@ jobs:
           output_location: "" # No ..extra build step needed
 
       - name: Output Live Website URL
-        run: echo "🎉 Deployment successful! Visit your site at: https://${{ steps.deploy-to-webapp.outputs.defaultHostname }}"
+        run: echo "🎉 Deployment successful! Visit your site at https://${{ steps.deploy-to-webapp.outputs.defaultHostname }}"
