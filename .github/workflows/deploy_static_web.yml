@@ -16,7 +16,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18 # Adjust if needed
+          node-version: 18  # Adjust if needed
 
       - name: Install Dependencies (If Needed)
         run: |
@@ -35,8 +35,8 @@ jobs:
       - name: Upload Artifact for Deployment
         uses: actions/upload-artifact@v3
         with:
-          name: frontend-artifact
-          path: frontend/public # Ensure this contains index.html
+          name: frontend-build
+          path: frontend/public  # Ensure this contains index.html
 
   deploy:
     runs-on: ubuntu-latest
@@ -48,7 +48,7 @@ jobs:
       - name: Download Build Artifact
         uses: actions/download-artifact@v3
         with:
-          name: frontend-artifact
+          name: frontend-build
           path: frontend/public
 
       - name: Deploy to Azure Static Web Apps
